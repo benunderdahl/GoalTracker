@@ -1,42 +1,54 @@
 import { useState } from 'react'
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState("")
   const [goals, setGoals] = useState([])
   function goalHandler(enteredText) {
     setEnteredGoal(enteredText)
-    console.log(enteredGoal)
   }
   function addGoal() {
     setGoals(prev => [...prev, enteredGoal])
     setEnteredGoal("")
   }
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="enter some text" onChangeText={goalHandler} value={enteredGoal}/>
-        <Button title="Add" onPress={addGoal}/>
+<View style={styles.appContainer}>
+  <View style={styles.inputContainer}>
+    <TextInput 
+      style={styles.textInput} 
+      placeholder="enter some text" 
+      onChangeText={goalHandler} 
+      value={enteredGoal} 
+    />
+    <Button title="Add" onPress={addGoal} />
+  </View>
+  <View style={styles.goalsContainer}>
+  <ScrollView >
+    {goals.map((goal, index) => (
+      <View style={styles.goalItem} key={index}>
+        {console.log(index)}
+        <Text style={{color: "white"}}>{goal}</Text>
       </View>
-      <View style={styles.goalsContainer}>
-        {goals.map((goal, index)=> {
-          return <Text key={index}>{goal}</Text>
-        })}
-      </View>
-      
+    ))}
+  </ScrollView>
     </View>
+</View>
+
   );
 }
 
 
 const styles = StyleSheet.create({
   appContainer: {
+    
+    backgroundColor: '#6FA4AF',
     padding: 50,
     paddingHorizontal: 16,
     height: '100%',
     width: '100%'
   },
   inputContainer: {
+    backgroundColor: '#B8C4A9',
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -53,6 +65,14 @@ const styles = StyleSheet.create({
     padding: 8
   },
   goalsContainer: {
+    backgroundColor: '#F4E9D7',
     flex: 5,
+  },
+  goalItem: {
+    padding: 6, 
+    backgroundColor: '#D97D55',
+    borderWidth: 2,
+    borderRadius: 4,
+    margin: 4,
   }
 })
