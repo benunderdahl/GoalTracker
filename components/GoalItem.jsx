@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Pressable
 
 function GoalItem(props) {
     return ( <View style={styles.goalItem}>
-    <Pressable onPress={props.onDelete.bind(this, props.id)} style={styles.pressedItem}>
+    <Pressable android_ripple={{color: "rgba(207, 92, 38, 0.78)"}} onPress={props.onDelete.bind(this, props.id)} style={({pressed}) => pressed && styles.pressedItem}>
           <Text style={{color: "white"}}>{props.text}</Text>
         </Pressable>
         </View>
